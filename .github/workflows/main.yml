@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candy Cloud ☁️ | Sweet Treats at Affordable Prices</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ============================================
+           CSS VARIABLES & RESET
+           ============================================ */
+        :root {
+            --primary-pink: #ff8fab;
+            --soft-pink: #ffc2d1;
+            --light-pink: #ffe5ec;
+            --pastel-purple: #cdb4db;
+            --light-purple: #e0c3fc;
+            --soft-white: #fff0f5;
+            --cream: #fff8fb;
+            --dark-text: #2d2d2d;
+            --medium-text: #555555;
+            --light-text: #888888;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --shadow-soft: 0 8px 32px rgba(255, 143, 171, 0.15);
+            --shadow-hover: 0 20px 60px rgba(255, 143, 171, 0.25);
+            --gradient-hero: linear-gradient(135deg, rgba(255, 197, 209, 0.3) 0%, rgba(205, 180, 219, 0.3) 100%);
+            --gradient-card: linear-gradient(145deg, #ffffff 0%, #fff5f8 100%);
+            --gradient-btn: linear-gradient(135deg, #ff8fab 0%, #cdb4db 100%);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cream);
+            color: var(--dark-text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 143, 171, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(255, 143, 171, 0.7); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: var(--transition);
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+            padding: 0.6rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .navbar.scrolled .logo {
+            color: var(--primary-pink);
+            text-shadow: none;
+        }
+
+        .logo i {
+            font-size: 1.3rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.3rem 0;
+            transition: var(--transition);
+            text-shadow: 0 1px 5px rgba(0,0,0,0.2);
+        }
+
+        .navbar.scrolled .nav-links a {
+            color: var(--dark-text);
+            text-shadow: none;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-btn);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-pink);
+        }
+
+        .navbar.scrolled .nav-links a:hover {
+            color: var(--primary-pink);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled .mobile-menu-btn {
+            color: var(--dark-text);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: url('https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(45, 20, 30, 0.75) 0%, rgba(80, 40, 60, 0.65) 50%, rgba(45, 20, 30, 0.75) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-title .cloud-emoji {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--gradient-btn);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            animation: pulse-glow 2s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .hero-btn:hover::before {
+            left: 100%;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 143, 171, 0.5);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .scroll-indicator i {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.5rem;
+        }
+
+        /* ============================================
+           SECTION STYLES
+           ============================================ */
+        section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: var(--light-pink);
+            color: var(--primary-pink);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            color: var(--dark-text);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--medium-text);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           MENU SECTION
+           ============================================ */
+        #menu {
+            background: var(--cream);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: var(--gradient-card);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-image-wrapper {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fff 0%, #f8f0f5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .product-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .product-card:hover .product-image-wrapper img {
+            transform: scale(1.12);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gradient-btn);
+            color: #fff;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 143, 171, 0.3);
+        }
+
+        .product-info {
+            padding: 1.8rem 2rem 2rem;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-desc {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-pink);
+        }
+
+        .product-price span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--light-text);
+        }
+
+        .add-to-cart {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--gradient-btn);
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 143, 171, 0.3);
+        }
+
+        .add-to-cart:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 6px 20px rgba(255, 143, 171, 0.5);
+        }
+
+        /* ============================================
+           ABOUT SECTION
+           ============================================ */
+        #about {
+            background: linear-gradient(135deg, #fff0f5 0%, #f5e6ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #about::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 143, 171, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: var(--shadow-hover);
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.02);
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--primary-pink);
+            border-radius: 24px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--dark-text);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .about-text p {
+            color: var(--medium-text);
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-pink);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--light-text);
+            font-weight: 500;
+        }
+
+        /* ============================================
+           REVIEWS SECTION
+           ============================================ */
+        #reviews {
+            background: var(--cream);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: var(--gradient-card);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .review-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            font-size: 5rem;
+            color: var(--light-pink);
+            font-family: Georgia, serif;
+            line-height: 1;
+            opacity: 0.6;
+        }
+
+        .review-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .review-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: var(--gradient-btn);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .review-meta h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark-text);
+        }
+
+        .review-stars {
+            color: #ffc107;
+            font-size: 0.9rem;
+            margin-top: 0.2rem;
+        }
+
+        .review-text {
+            color: var(--medium-text);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        /* ============================================
+           ORDER SECTION
+           ============================================ */
+        #order {
+            background: linear-gradient(135deg, #ffe5ec 0%, #e0c3fc 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #order::before {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(205, 180, 219, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .order-container {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .order-form {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid rgba(255, 143, 171, 0.2);
+            border-radius: 14px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--dark-text);
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 0 4px rgba(255, 143, 171, 0.15);
+            background: #fff;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.1rem;
+            background: var(--gradient-btn);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 8px 25px rgba(255, 143, 171, 0.35);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(255, 143, 171, 0.5);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           CONTACT SECTION
+           ============================================ */
+        #contact {
+            background: var(--cream);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: var(--gradient-card);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--gradient-btn);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            color: #fff;
+            font-size: 1.8rem;
+            transition: var(--transition);
+            box-shadow: 0 8px 20px rgba(255, 143, 171, 0.3);
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 12px 30px rgba(255, 143, 171, 0.4);
+        }
+
+        .contact-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            color: #fff;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-tagline {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 2rem 0 1.5rem;
+        }
+
+        .footer-bottom {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom a {
+            color: var(--soft-pink);
+            text-decoration: none;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 5rem 2rem 2rem;
+                gap: 1.5rem;
+                transition: right 0.4s ease;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                color: var(--dark-text) !important;
+                text-shadow: none !important;
+                font-size: 1.1rem;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1001;
+            }
+
+            .navbar.scrolled .mobile-menu-btn {
+                color: var(--dark-text);
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .order-form {
+                padding: 2rem 1.5rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-btn {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* ============================================
+           UTILITY CLASSES
+           ============================================ */
+        .text-center { text-align: center; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-3 { margin-bottom: 3rem; }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- ============================================
+         NAVIGATION
+         ============================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <i class="fas fa-cloud"></i>
+                Candy Cloud
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#order">Order</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         HERO SECTION
+         ============================================ -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">✨ Student-Friendly Prices</div>
+            <h1 class="hero-title">
+                Candy Cloud <span class="cloud-emoji">☁️</span>
+            </h1>
+            <p class="hero-subtitle">Sweet Treats at Affordable Prices</p>
+            <a href="#order" class="hero-btn">
+                <i class="fas fa-shopping-bag" style="margin-right: 0.5rem;"></i>
+                Order Now
+            </a>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- ============================================
+         MENU SECTION
+         ============================================ -->
+    <section id="menu">
+        <div class="section-container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">Our Menu</span>
+                <h2 class="section-title">Delicious Snacks, Sweet Prices</h2>
+                <p class="section-subtitle">Handpicked favorites that bring joy without breaking the bank. Quality snacks for every sweet tooth.</p>
+            </div>
+
+            <div class="products-grid">
+                <!-- Product 1: Sneakers -->
+                <div class="product-card animate-on-scroll">
+                    <div class="product-image-wrapper">
+                        <span class="product-badge">Popular</span>
+                        <img src="https://kimi-web-img.moonshot.cn/img/www.snickers.com/0ef5954dc7f1a5a6983362045dda8d2e0b1be25c.png" alt="Sneakers Chocolate Bar">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Sneakers</h3>
+                        <p class="product-desc">Classic peanut, caramel, and nougat chocolate bar. The perfect energy boost between classes.</p>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                RM 3.50
+                            </div>
+                            <button class="add-to-cart" aria-label="Add to cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2: Cloud 9 -->
+                <div class="product-card animate-on-scroll">
+                    <div class="product-image-wrapper">
+                        <span class="product-badge">Best Value</span>
+                        <img src="https://kimi-web-img.moonshot.cn/img/daganghalal.blob.core.windows.net/ce3370bf9bc3d54840d682a324ab286b486993d7.png" alt="Cloud 9 Chocolate Bar">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Cloud 9</h3>
+                        <p class="product-desc">Crispy chocolate bar with a light, airy texture. A local favorite that melts in your mouth.</p>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                RM 2.00
+                            </div>
+                            <button class="add-to-cart" aria-label="Add to cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3: KitKat -->
+                <div class="product-card animate-on-scroll">
+                    <div class="product-image-wrapper">
+                        <span class="product-badge">Premium</span>
+                        <img src="https://kimi-web-img.moonshot.cn/img/www.shutterstock.com/00ff2257811b4aefc2da0ad945ae26368c84de68.jpg" alt="KitKat Chocolate Bar">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">KitKat</h3>
+                        <p class="product-desc">Iconic crispy wafer fingers covered in smooth milk chocolate. Have a break, have a KitKat.</p>
+                        <div class="product-footer">
+                            <div class="product-price">
+                                RM 4.00
+                            </div>
+                            <button class="add-to-cart" aria-label="Add to cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         ABOUT SECTION
+         ============================================ -->
+    <section id="about">
+        <div class="section-container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">Our Story</span>
+                <h2 class="section-title">About Candy Cloud</h2>
+                <p class="section-subtitle">More than just snacks — we are a community built on sweetness and affordability.</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-image animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1543253687-c931c8e01820?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Candy Cloud Store">
+                </div>
+                <div class="about-text animate-on-scroll">
+                    <h3>Spreading Happiness, One Sweet at a Time 🍬</h3>
+                    <p>
+                        Candy Cloud started as a small idea to provide affordable snacks for students and the local community. What began as a simple setup has grown into a trusted snack spot known for quality, taste, and budget-friendly prices.
+                    </p>
+                    <p>
+                        Our goal is to continue spreading happiness through sweets while maintaining affordability and quality for everyone. We believe that everyone deserves a little sweetness in their day, regardless of their budget.
+                    </p>
+                    <p>
+                        From classrooms to cafeterias, from study sessions to hangouts — Candy Cloud is here to make every moment a little sweeter. Join our growing family of snack lovers!
+                    </p>
+
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">500+</span>
+                            <span class="stat-label">Happy Customers</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">Premium Products</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Satisfaction</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         REVIEWS SECTION
+         ============================================ -->
+    <section id="reviews">
+        <div class="section-container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title">What Our Customers Say</h2>
+                <p class="section-subtitle">Real feedback from real snack lovers in our community.</p>
+            </div>
+
+            <div class="reviews-grid">
+                <!-- Review 1 -->
+                <div class="review-card animate-on-scroll">
+                    <div class="review-header">
+                        <div class="review-avatar">A</div>
+                        <div class="review-meta">
+                            <h4>Aisyah Rahman</h4>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Very cheap and tasty! I buy from Candy Cloud almost every week. The prices are unbeatable for students like me. Highly recommend to everyone!"</p>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="review-card animate-on-scroll">
+                    <div class="review-header">
+                        <div class="review-avatar">M</div>
+                        <div class="review-meta">
+                            <h4>Muhammad Faiz</h4>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Best snacks for students! The Cloud 9 is my absolute favorite. Fast delivery and the owner is super friendly. Will definitely order again!"</p>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="review-card animate-on-scroll">
+                    <div class="review-header">
+                        <div class="review-avatar">S</div>
+                        <div class="review-meta">
+                            <h4>Siti Nurhaliza</h4>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Highly recommended! I ordered for my whole study group and everyone loved it. The KitKat was fresh and the packaging was neat. Great service!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         ORDER SECTION
+         ============================================ -->
+    <section id="order">
+        <div class="section-container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">Place Order</span>
+                <h2 class="section-title">Order Your Favorites</h2>
+                <p class="section-subtitle">Fill in the form below and we will contact you on WhatsApp to confirm your order.</p>
+            </div>
+
+            <div class="order-container animate-on-scroll">
+                <form class="order-form" id="orderForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name"><i class="fas fa-user" style="margin-right: 0.4rem; color: var(--primary-pink);"></i>Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone"><i class="fas fa-phone" style="margin-right: 0.4rem; color: var(--primary-pink);"></i>Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="e.g. 012-3456789" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product"><i class="fas fa-candy-cane" style="margin-right: 0.4rem; color: var(--primary-pink);"></i>Select Product</label>
+                            <select id="product" name="product" required>
+                                <option value="" disabled selected>Choose your snack</option>
+                                <option value="Sneakers">Sneakers — RM 3.50</option>
+                                <option value="Cloud 9">Cloud 9 — RM 2.00</option>
+                                <option value="KitKat">KitKat — RM 4.00</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity"><i class="fas fa-sort-numeric-up" style="margin-right: 0.4rem; color: var(--primary-pink);"></i>Quantity</label>
+                            <input type="number" id="quantity" name="quantity" min="1" max="50" value="1" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message"><i class="fas fa-comment" style="margin-right: 0.4rem; color: var(--primary-pink);"></i>Message (Optional)</label>
+                        <textarea id="message" name="message" placeholder="Any special requests or delivery instructions..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fab fa-whatsapp" style="margin-right: 0.5rem;"></i>
+                        Send Order via WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CONTACT SECTION
+         ============================================ -->
+    <section id="contact">
+        <div class="section-container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">Get In Touch</span>
+                <h2 class="section-title">Contact Us</h2>
+                <p class="section-subtitle">Reach out to us through any of these channels. We are always happy to hear from you!</p>
+            </div>
+
+            <div class="contact-grid">
+                <a href="https://wa.me/601126096530" target="_blank" class="contact-card animate-on-scroll">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3>WhatsApp 1</h3>
+                    <p>+60 11-2609-6530</p>
+                </a>
+
+                <a href="https://wa.me/60183552538" target="_blank" class="contact-card animate-on-scroll">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3>WhatsApp 2</h3>
+                    <p>+60 18-355-2538</p>
+                </a>
+
+                <a href="https://instagram.com/candy_cloud190" target="_blank" class="contact-card animate-on-scroll">
+                    <div class="contact-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <h3>Instagram</h3>
+                    <p>@candy_cloud190</p>
+                </a>
+
+                <a href="https://tiktok.com/@candy_cloud190" target="_blank" class="contact-card animate-on-scroll">
+                    <div class="contact-icon">
+                        <i class="fab fa-tiktok"></i>
+                    </div>
+                    <h3>TikTok</h3>
+                    <p>@candy_cloud190</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-cloud"></i>
+                Candy Cloud
+            </div>
+            <p class="footer-tagline">Sweet Treats at Affordable Prices ☁️</p>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Candy Cloud. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        // ============================================
+        // NAVBAR SCROLL EFFECT
+        // ============================================
+        const navbar = document.getElementById('navbar');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ============================================
+        // MOBILE MENU TOGGLE
+        // ============================================
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        // ============================================
+        // SCROLL ANIMATIONS (Fade In)
+        // ============================================
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ============================================
+        // ORDER FORM — SEND TO WHATSAPP
+        // ============================================
+        const orderForm = document.getElementById('orderForm');
+
+        orderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const product = document.getElementById('product').value;
+            const quantity = document.getElementById('quantity').value;
+            const message = document.getElementById('message').value.trim();
+
+            if (!name || !phone || !product || !quantity) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Build WhatsApp message
+            let waMessage = `*New Order from Candy Cloud* %0A%0A`;
+            waMessage += `*Name:* ${name}%0A`;
+            waMessage += `*Phone:* ${phone}%0A`;
+            waMessage += `*Product:* ${product}%0A`;
+            waMessage += `*Quantity:* ${quantity}%0A`;
+            if (message) {
+                waMessage += `*Message:* ${message}%0A`;
+            }
+            waMessage += `%0AThank you! 🍬`;
+
+            // Use first WhatsApp number as default
+            const waNumber = '601126096530';
+            const waUrl = `https://wa.me/${waNumber}?text=${waMessage}`;
+
+            // Show confirmation
+            alert('Order sent! We will contact you on WhatsApp shortly.');
+
+            // Open WhatsApp
+            window.open(waUrl, '_blank');
+
+            // Reset form
+            orderForm.reset();
+        });
+
+        // ============================================
+        // ADD TO CART BUTTONS (Scroll to order)
+        // ============================================
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const card = this.closest('.product-card');
+                const productName = card.querySelector('.product-name').textContent;
+                document.getElementById('product').value = productName;
+                document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // ============================================
+        // SMOOTH SCROLL FOR ANCHOR LINKS
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 70;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
