@@ -13,7 +13,14 @@
            CSS VARIABLES & RESET
            ============================================ */
         :root {
+            <head>
+    <meta charset="UTF-8">
+    ...
+    <link rel="stylesheet" href="...font-awesome...">
+    <base target="_blank">  <!-- 
+        :root {             
             --primary-pink: #ff8fab;
+            ...
             --soft-pink: #ffc2d1;
             --light-pink: #ffe5ec;
             --pastel-purple: #cdb4db;
